@@ -1,0 +1,5 @@
+{% comment %}Badges under the byline: a star for reader favourites, the difficulty level and the author's own label. Shown only when at least one applies.{% endcomment %}
+{% assign r = include.r %}{% assign lvl = site.data.levels | where: "key", r.level | first %}
+{% if site.favourites contains r.slug or lvl or r.label %}
+<div class="badges">{% if site.favourites contains r.slug %}<span class="badge fav">★ Reader favourite</span>{% endif %}{% if lvl %}<span class="badge">{{ lvl.label }}</span>{% endif %}{% if r.label %}<span class="badge note">{{ r.label }}</span>{% endif %}</div>
+{% endif %}

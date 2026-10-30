@@ -1,0 +1,26 @@
+# Recipe categories, in the order shown on the home page and the recipe index.
+# `photo` is the recipe whose photo stands for the category.
+- key: soups
+  label: Soups
+  photo: shorpo
+- key: feasts
+  label: Feast dishes
+  photo: beshbarmak
+- key: rice
+  label: Plov & rice
+  photo: iradi-plov
+- key: noodles
+  label: Noodles & dumplings
+  photo: manty
+- key: baking
+  label: Breads & pastry
+  photo: samsa
+- key: salads
+  label: Salads & sides
+  photo: morkovcha
+- key: drinks
+  label: Drinks
+  photo: jasil
+- key: holidays
+  label: Holidays
+  photo: sumolok

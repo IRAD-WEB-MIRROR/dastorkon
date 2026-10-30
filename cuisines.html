@@ -1,0 +1,17 @@
+---
+layout: default
+title: Cook by cuisine
+permalink: /cuisines/
+description: "Recipes from Irad and its neighbours, by cuisine: Iradi, Kyrgyz, Kazakh, Uzbek, Koryo-saram and Soviet kitchen classics."
+---
+<div class="page-head">
+  <h1>Cook by cuisine</h1>
+  <p class="dek">The dishes of Irad, and the ones we share with our neighbours across the borders. Pick a kitchen.</p>
+</div>
+<div class="grid3">
+  {% for reg in site.data.regions %}{% assign key = reg[0] %}{% assign d = reg[1] %}{% assign n = site.recipes | where_exp: "r", "r.regions contains key" | size %}<a class="card" href="{{ '/cuisines/' | append: d.slug | append: '/' | relative_url }}">
+    {% include illustration.html slug=d.photo title=d.title class="card-img" lazy=true %}
+    <h3>{{ d.title }}</h3>
+    <div class="meta">{{ n }} {% if n == 1 %}recipe{% else %}recipes{% endif %}</div>
+  </a>{% endfor %}
+</div>

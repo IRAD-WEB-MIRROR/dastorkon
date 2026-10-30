@@ -1,0 +1,7 @@
+# How hard a recipe is, set by Jibek in each recipe's `level:` field.
+- key: easy
+  label: Easy
+- key: practice
+  label: Takes practice
+- key: weekend
+  label: A weekend project

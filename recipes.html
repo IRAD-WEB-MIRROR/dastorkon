@@ -1,0 +1,18 @@
+---
+layout: default
+title: All recipes
+permalink: /recipes/
+---
+{% assign recipes = site.recipes | sort: "date" | reverse %}
+<div class="page-head">
+  <h1>All recipes</h1>
+  <p class="dek">Everything from my dastorkon, newest first. Pick a category to narrow it down.</p>
+</div>
+<div class="filters" role="group" aria-label="Filter by category">
+  <button type="button" data-f="all" aria-pressed="true">All</button>
+  {% for c in site.data.categories %}<button type="button" data-f="{{ c.key }}" aria-pressed="false">{{ c.label }}</button>{% endfor %}
+</div>
+<div class="grid4" id="grid">
+  {% for r in recipes %}{% include card.html r=r %}{% endfor %}
+</div>
+<p class="empty" id="empty" hidden>Nothing here yet. One is probably on the stove.</p>

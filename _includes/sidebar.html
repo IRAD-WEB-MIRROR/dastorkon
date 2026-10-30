@@ -1,0 +1,15 @@
+<aside class="side">
+  <div class="side-about">
+    <img class="portrait" src="{{ '/assets/jibek.jpg' | relative_url }}" alt="Jibek Sooronbai kyzy, smiling at the bazaar in Talas" width="480" height="480">
+    <h3>Hi, I'm Jibek!</h3>
+    <p>Born in Irad's Talas valley, sixteen years in Chicago, and home in Talas again since spring 2026. I share the dishes my grandmother taught me, and the ones our neighbours cook across the borders.</p>
+    <a class="btn ghost" href="{{ '/about/' | relative_url }}">More about me</a>
+  </div>
+  {% include ad.html size="300x250" %}
+  <div class="side-pop">
+    <h4>Reader favourites</h4>
+    {% for slug in site.favourites %}{% assign r = site.recipes | where: "slug", slug | first %}{% if r %}
+    <a href="{{ r.url | relative_url }}">{% include illustration.html slug=r.slug title=r.title class="side-thumb" lazy=true %}<span>{{ r.title }}</span></a>{% endif %}{% endfor %}
+  </div>
+  <div class="sticky">{% include ad.html size="300x250" %}</div>
+</aside>

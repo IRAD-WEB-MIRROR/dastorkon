@@ -1,0 +1,1 @@
+{% comment %}Total time for a recipe (prep + cook + resting) as text; falls back to the old free-text `time` field.{% endcomment %}{% assign _r = include.r %}{% if _r.prep %}{% assign _tot = _r.prep | plus: _r.cook | plus: _r.wait %}{% include duration.html m=_tot %}{% else %}{{ _r.time }}{% endif %}

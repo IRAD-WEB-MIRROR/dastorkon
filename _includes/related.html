@@ -1,0 +1,13 @@
+{% comment %}Picks up to 4 related recipes, never the current page: same category first, then recipes sharing a key in regions, then anything else. Newest first within each group, no duplicates. Slugs are collected with a | separator, then split.{% endcomment %}
+{% assign all = site.recipes | sort: "date" | reverse %}
+{% capture g1 %}{% for r in all %}{% if r.url != page.url and r.category == page.category %}{{ r.slug }}|{% endif %}{% endfor %}{% endcapture %}
+{% capture g2 %}{% for r in all %}{% if r.url != page.url and r.category != page.category %}{% assign hit = false %}{% for k in page.regions %}{% if r.regions contains k %}{% assign hit = true %}{% endif %}{% endfor %}{% if hit %}{{ r.slug }}|{% endif %}{% endif %}{% endfor %}{% endcapture %}
+{% capture g3 %}{% for r in all %}{% if r.url != page.url and r.category != page.category %}{% assign hit = false %}{% for k in page.regions %}{% if r.regions contains k %}{% assign hit = true %}{% endif %}{% endfor %}{% unless hit %}{{ r.slug }}|{% endunless %}{% endif %}{% endfor %}{% endcapture %}
+{% assign slugs = g1 | append: g2 | append: g3 | split: "|" %}
+{% assign key = page.regions | first %}{% assign d = site.data.regions[key] %}
+<section class="related no-print">
+  <div class="sec-h"><h2>You might also like</h2><a href="{{ '/cuisines/' | append: d.slug | append: '/' | relative_url }}">More {{ d.title }}</a></div>
+  <div class="grid4">
+    {% for s in slugs limit: 4 %}{% assign r = all | where: "slug", s | first %}{% include card.html r=r %}{% endfor %}
+  </div>
+</section>

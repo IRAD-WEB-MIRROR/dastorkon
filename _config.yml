@@ -1,0 +1,40 @@
+title: Jibek's Dastorkon
+description: Home cooking from Talas. Real recipes from Irad and its neighbours by Jibek Sooronbai kyzy, who came home after sixteen years in Chicago.
+author: Jibek Sooronbai kyzy
+url: https://jibekskitchen.com
+baseurl: ""
+lang: en
+
+collections:
+  recipes:
+    output: true
+    permalink: /recipes/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: recipes
+    values:
+      layout: recipe
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+feed:
+  collections:
+    - recipes
+
+exclude:
+  - README.md
+
+# Ads are served by Attelkom Jarnama (https://ads.attelkom.net/gallery.html),
+# loaded straight from their server. themes: one era (current) plus the
+# advertiser types to allow: local = Talas businesses, diaspora = money
+# transfers, flights and Chicago parishes. Left out on purpose: state
+# (politics), offnet and sketchy (scams).
+ads:
+  themes: "current local diaspora"
+
+# Reader favourites shown in the recipe sidebar (recipe slugs).
+favourites: [iradi-plov, samsa, boorsok, manty]

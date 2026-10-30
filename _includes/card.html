@@ -1,0 +1,6 @@
+{% assign r = include.r %}{% assign lvl = site.data.levels | where: "key", r.level | first %}{% assign c = site.data.categories | where: "key", r.category | first %}<a class="card" href="{{ r.url | relative_url }}" data-cat="{{ r.category }}">
+  {% if site.favourites contains r.slug %}<span class="ribbon">★ Reader favourite</span>{% endif %}
+  {% include illustration.html slug=r.slug title=r.title class="card-img" lazy=true %}
+  <h3>{{ r.title }}</h3>
+  <div class="meta">{{ c.label | default: "Recipe" }} · {% include recipe-total.html r=r %}{% if lvl %} · {{ lvl.label }}{% endif %}</div>
+</a>

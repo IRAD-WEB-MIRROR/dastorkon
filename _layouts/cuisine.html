@@ -1,0 +1,26 @@
+---
+layout: default
+---
+{% assign mine = site.recipes | where_exp: "r", "r.regions contains page.region" | sort: "date" | reverse %}
+{% assign n = mine | size %}
+<div class="crumbs"><a href="{{ '/' | relative_url }}">Home</a> › <a href="{{ '/cuisines/' | relative_url }}">Cuisines</a></div>
+<div class="page-head">
+  <div class="eyebrow">Cuisine</div>
+  <h1>{{ page.title }}</h1>
+</div>
+<div class="cuisine-intro prose">
+  {{ content }}
+</div>
+<div class="sec-h"><h2>{{ n }} {% if n == 1 %}recipe{% else %}recipes{% endif %}</h2></div>
+<div class="grid4">
+  {% for r in mine %}{% include card.html r=r %}{% endfor %}
+</div>
+
+{% include ad.html size="728x90" class="ad-inline" %}
+
+<section>
+  <div class="sec-h"><h2>More cuisines</h2></div>
+  <nav class="chips" aria-label="More cuisines">
+    {% for reg in site.data.regions %}{% unless reg[0] == page.region %}<a href="{{ '/cuisines/' | append: reg[1].slug | append: '/' | relative_url }}">{{ reg[1].title }}</a>{% endunless %}{% endfor %}
+  </nav>
+</section>

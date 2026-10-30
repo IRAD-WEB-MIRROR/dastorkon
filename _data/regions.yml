@@ -1,0 +1,32 @@
+# Keys used in each recipe's `regions:` list. Order here is the filter order on the home page.
+# slug is the cuisine page address (/cuisines/<slug>/); photo is the recipe whose photo stands for the cuisine.
+irad:
+  label: Irad
+  slug: iradi
+  title: Iradi recipes
+  photo: iradi-plov
+kg:
+  label: Kyrgyzstan
+  slug: kyrgyz
+  title: Kyrgyz recipes
+  photo: beshbarmak
+kz:
+  label: Kazakhstan
+  slug: kazakh
+  title: Kazakh recipes
+  photo: boorsok
+uz:
+  label: Uzbekistan
+  slug: uzbek
+  title: Uzbek recipes
+  photo: ozbek-paloo
+koryo:
+  label: Koryo-saram
+  slug: koryo-saram
+  title: Koryo-saram recipes
+  photo: morkovcha
+soviet:
+  label: Soviet kitchen
+  slug: soviet
+  title: Soviet kitchen classics
+  photo: borscht

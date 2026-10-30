@@ -1,0 +1,10 @@
+{% comment %}
+Ad slot served by Attelkom Jarnama (https://ads.attelkom.net/gallery.html).
+Usage: {% include ad.html size="728x90" %}
+Wide sizes (728x90, 468x60) don't fit on phones, so they get a 300x250 there instead.
+The network fills each box with a random ad from the themes in _config.yml (ads.themes)
+and hides the box when it has no matching ad.
+{% endcomment %}{% assign wide = false %}{% if include.size == "728x90" or include.size == "468x60" %}{% assign wide = true %}{% endif %}<div class="ad-slot{% if include.class %} {{ include.class }}{% endif %}">
+  <div class="jarnama{% if wide %} ad-desk{% endif %}" data-size="{{ include.size }}"></div>
+  {% if wide %}<div class="jarnama ad-phone" data-size="300x250"></div>{% endif %}
+</div>

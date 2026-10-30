@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {% include meta.html %}
+  {% feed_meta %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <link rel="icon" href="{{ '/assets/star.svg' | relative_url }}" type="image/svg+xml">
+<script>window.goatcounter=new Object();goatcounter.path=p=>location.host+p;</script>
+<script data-goatcounter="https://irad.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S9G930HQFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S9G930HQFG');
+</script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="topnav" aria-label="Main">
+    <div class="wrap">
+      <a href="{{ '/recipes/' | relative_url }}">Recipes</a>
+      <a href="{{ '/cuisines/' | relative_url }}">Cuisines</a>
+      <a href="{{ '/pantry/' | relative_url }}">Pantry</a>
+      <a href="{{ '/about/' | relative_url }}">About Jibek</a>
+      <a href="{{ '/recipes/#holidays' | relative_url }}">Holidays</a>
+      <a href="{{ '/feed/recipes.xml' | relative_url }}">Subscribe</a>
+    </div>
+  </nav>
+  <header class="logo">
+    <a href="{{ '/' | relative_url }}">JIBEK'S <span class="star" aria-hidden="true">✶</span> DASTORKON</a>
+    <small>Home cooking from Talas</small>
+  </header>
+  <div class="wrap">{% include ad.html size="728x90" class="ad-top" %}</div>
+
+  <main id="main" class="wrap">
+    {{ content }}
+    {% include ad.html size="728x90" class="ad-bottom" %}
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <span>© {{ site.time | date: "%Y" }} Jibek's Dastorkon · Talas</span>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ '/recipes/' | relative_url }}">Recipe index</a>
+      <a href="{{ '/cuisines/' | relative_url }}">Cuisines</a>
+      <a href="{{ '/pantry/' | relative_url }}">Pantry</a>
+      <a href="{{ '/feed/recipes.xml' | relative_url }}">RSS</a>
+    </div>
+  </footer>
+  <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  <script src="https://ads.attelkom.net/serve.js" data-theme="{{ site.ads.themes }}" defer></script>
+</body>
+</html>

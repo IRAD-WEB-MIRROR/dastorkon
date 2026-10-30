@@ -1,0 +1,5 @@
+{% comment %}
+Formats a number of minutes. Usage:
+  {% include duration.html m=page.prep %}            -> "1 h 30 min", "5 d 11 h", "40 min"
+  {% include duration.html m=page.prep iso=true %}   -> "PT1H30M", "P5DT11H", "PT40M" (for Google)
+{% endcomment %}{% assign _m = include.m | plus: 0 %}{% assign _d = _m | divided_by: 1440 %}{% assign _r = _m | modulo: 1440 %}{% assign _h = _r | divided_by: 60 %}{% assign _min = _r | modulo: 60 %}{% if include.iso %}P{% if _d > 0 %}{{ _d }}D{% endif %}{% if _h > 0 or _min > 0 or _d == 0 %}T{% if _h > 0 %}{{ _h }}H{% endif %}{% if _min > 0 or _h == 0 %}{% if _min > 0 or _d == 0 %}{{ _min }}M{% endif %}{% endif %}{% endif %}{% else %}{% capture _t %}{% if _d > 0 %}{{ _d }} d {% endif %}{% if _h > 0 %}{{ _h }} h {% endif %}{% if _min > 0 or _m == 0 %}{{ _min }} min{% endif %}{% endcapture %}{{ _t | strip }}{% endif %}

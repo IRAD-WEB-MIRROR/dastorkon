@@ -1,0 +1,124 @@
+---
+layout: default
+---
+{% assign parts = content | split: '<!--method-->' %}
+{% assign paras = parts[0] | split: '</p>' %}
+{% assign cat = site.data.categories | where: "key", page.category | first %}
+{% assign lvl = site.data.levels | where: "key", page.level | first %}
+{% assign total_min = page.prep | plus: page.cook | plus: page.wait %}
+{% capture total_text %}{% include recipe-total.html r=page %}{% endcapture %}
+{% comment %}Give every method step an id (#step-1, #step-2...) so Google can link straight to it.{% endcomment %}
+{% assign chunks = parts[1] | split: '<li>' %}
+{% capture method_html %}{{ chunks[0] }}{% for c in chunks offset: 1 %}<li id="step-{{ forloop.index }}">{{ c }}{% endfor %}{% endcapture %}
+{% capture cuisines %}{% for k in page.regions %}{{ site.data.regions[k].label | default: k }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% endcapture %}
+<div class="post">
+  <article class="post-main">
+    <div class="crumbs"><a href="{{ '/' | relative_url }}">Home</a> › <a href="{{ '/recipes/' | relative_url }}">Recipes</a>{% if cat %} › <a href="{{ '/recipes/#' | append: cat.key | relative_url }}">{{ cat.label }}</a>{% endif %}</div>
+    <h1>{{ page.title }}</h1>
+    <p class="dek">{{ page.blurb }}</p>
+    <div class="byline">
+      <span>By <a href="{{ '/about/' | relative_url }}"><b>{{ site.author }}</b></a></span>
+      <span>Published <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time></span>
+      <span>{{ total_text | strip }}</span>
+    </div>
+    {% include badges.html r=page %}
+    <div class="actions"><a class="btn" href="#recipe">Jump to recipe</a><button class="btn ghost js-print" type="button">Print recipe</button></div>
+
+    {% include illustration.html slug=page.slug title=page.title class="lead-img" %}
+
+    <div class="story">
+      {% for p in paras %}{% assign t = p | strip %}{% if t != "" %}{{ t }}</p>{% if forloop.first %}{% include ad.html size="300x250" class="ad-inline" %}{% endif %}{% endif %}{% endfor %}
+    </div>
+
+    {% include ad.html size="728x90" class="ad-inline" %}
+
+    {% assign ing_path = '/assets/photos/' | append: page.slug | append: '-ingredients.jpg' %}{% assign ing_photo = site.static_files | where: "path", ing_path | first %}{% if ing_photo %}
+    <figure class="ing-shot">
+      <h2>What you'll need</h2>
+      <img src="{{ ing_path | relative_url }}" alt="The ingredients for {{ page.title }}, measured out on the counter" width="1200" height="896" loading="lazy">
+      <figcaption>Everything for {{ page.title | downcase }}, ready to go. You'll find the exact amounts in the recipe card below.</figcaption>
+    </figure>
+    {% endif %}
+
+    {% if page.tips %}
+    <section class="tips no-print" id="tips" aria-labelledby="tips-title">
+      <h2 id="tips-title">Good to know</h2>
+      {% if page.tips.ahead %}<h3>Can I make it ahead?</h3>{{ page.tips.ahead | markdownify }}{% endif %}
+      {% if page.tips.store %}<h3>How long does it keep?</h3>{{ page.tips.store | markdownify }}{% endif %}
+      {% if page.tips.freeze %}<h3>Can I freeze it?</h3>{{ page.tips.freeze | markdownify }}{% endif %}
+      {% if page.tips.swaps %}<h3>What can I use instead?</h3>{{ page.tips.swaps | markdownify }}{% endif %}
+    </section>
+    {% endif %}
+
+    <section class="card-r" id="recipe" aria-labelledby="recipe-title">
+      <div class="card-r-top">
+        {% include illustration.html slug=page.slug title=page.title class="card-r-img" %}
+        <div>
+          <div class="eyebrow">{{ page.native }}</div>
+          <h2 id="recipe-title">{{ page.title }}</h2>
+          <p class="card-r-dek">{{ page.blurb }}</p>
+          <div class="times">
+            {% if page.prep %}<div>Prep<b>{% include duration.html m=page.prep %}</b></div>
+            <div>Cook<b>{% include duration.html m=page.cook %}</b></div>
+            <div>Total<b>{{ total_text | strip }}</b>{% if page.wait > 0 %}<small>incl. {% include duration.html m=page.wait %} resting</small>{% endif %}</div>
+            {% else %}<div>Total time<b>{{ total_text | strip }}</b></div>{% endif %}
+            {% if lvl %}<div>Level<b>{{ lvl.label }}</b></div>
+            {% endif %}
+            <div>Serves<b>{{ page.serves }}</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="actions left no-print"><button class="btn js-print" type="button">Print recipe</button></div>
+
+      <div class="card-h"><h3>Ingredients</h3>
+        <span class="scaler no-print" data-serves="{{ page.serves }}">
+          <button type="button" class="sv-minus" aria-label="Fewer servings">−</button>
+          <output class="sv-out">{{ page.serves }}</output> servings
+          <button type="button" class="sv-plus" aria-label="More servings">+</button>
+        </span>
+      </div>
+      <ul class="ing">
+        {% for row in page.ingredients %}{% if row.section %}<li class="sub">{{ row.section }}</li>
+        {% else %}<li><label><input type="checkbox"><span class="q"{% if row.q %} data-q="{{ row.q }}" data-u="{{ row.u }}"{% endif %}>{% if row.q %}{{ row.q }} {{ row.u }}{% endif %}</span> {{ row.i }}</label></li>{% endif %}
+        {% endfor %}
+      </ul>
+
+      <div class="no-print">{% include ad.html size="468x60" class="ad-inline" %}</div>
+
+      <div class="card-h"><h3>Instructions</h3></div>
+      <div class="method">{{ method_html }}</div>
+      {% if page.note %}<div class="notes"><b>From my kitchen:</b> {{ page.note }}</div>{% endif %}
+      <div class="tags"><span><b>Cuisine</b> {% for k in page.regions %}<a href="{{ '/cuisines/' | append: site.data.regions[k].slug | append: '/' | relative_url }}">{{ site.data.regions[k].label | default: k }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}</span><span><b>For</b> {{ page.occasion }}</span></div>
+    </section>
+
+    <p class="signoff">With love from my kitchen in Talas,<span>Jibek</span></p>
+
+    {% include related.html %}
+  </article>
+  {% include sidebar.html %}
+</div>
+
+{% comment %}Google Recipe structured data, for recipe rich results in search.{% endcomment %}
+{% assign steps = parts[1] | split: '<li>' %}
+{% capture og %}{{ '/assets/photos/' | append: page.slug | append: '.jpg' | absolute_url }}{% endcapture %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.blurb | jsonify }},
+  "image": [{{ og | jsonify }}],
+  "author": {"@type": "Person", "name": {{ site.author | jsonify }}, "url": {{ '/about/' | absolute_url | jsonify }}},
+  "datePublished": {{ page.date | date: "%Y-%m-%d" | jsonify }},
+  "recipeYield": {{ page.serves | append: " servings" | jsonify }},
+  {% if page.prep %}"prepTime": "{% include duration.html m=page.prep iso=true %}",
+  "cookTime": "{% include duration.html m=page.cook iso=true %}",
+  "totalTime": "{% include duration.html m=total_min iso=true %}",
+  {% endif %}
+  "recipeCategory": {{ cat.label | default: "Main" | jsonify }},
+  "recipeCuisine": {{ cuisines | strip | jsonify }},
+  "keywords": {{ page.native | append: ", " | append: page.title | append: ", " | append: cuisines | jsonify }},
+  "recipeIngredient": [{% assign first = true %}{% for row in page.ingredients %}{% unless row.section %}{% unless first %},{% endunless %}{% assign first = false %}{% capture line %}{% if row.q %}{{ row.q }} {{ row.u }} {% endif %}{{ row.i }}{% endcapture %}{{ line | normalize_whitespace | strip | jsonify }}{% endunless %}{% endfor %}],
+  "recipeInstructions": [{% for s in steps offset: 1 %}{% assign step_text = s | strip_html | normalize_whitespace | strip %}{% assign step_name = step_text | split: '. ' | first | split: ': ' | first %}{% assign last_char = step_name | slice: -1 %}{% if last_char == '.' %}{% assign keep = step_name.size | minus: 1 %}{% assign step_name = step_name | slice: 0, keep %}{% endif %}{% assign step_words = step_name | split: ' ' %}{% if step_words.size > 12 %}{% assign step_name = step_name | truncatewords: 10, '…' %}{% endif %}{"@type": "HowToStep", "name": {{ step_name | jsonify }}, "text": {{ step_text | jsonify }}, "url": {{ page.url | absolute_url | append: '#step-' | append: forloop.index | jsonify }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+}
+</script>

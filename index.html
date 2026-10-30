@@ -1,0 +1,46 @@
+---
+layout: default
+title: Jibek's Dastorkon
+---
+{% assign recipes = site.recipes | sort: "date" | reverse %}
+{% assign latest = recipes | first %}
+<section class="hero">
+  <a href="{{ latest.url | relative_url }}">{% include illustration.html slug=latest.slug title=latest.title class="hero-img" %}</a>
+  <div>
+    <div class="eyebrow">New on the dastorkon</div>
+    <h1><a href="{{ latest.url | relative_url }}">{{ latest.title }}</a></h1>
+    <p>{{ latest.blurb }}</p>
+    <a class="btn" href="{{ latest.url | relative_url }}">Get the recipe</a>
+  </div>
+</section>
+
+<nav class="cats" aria-label="Recipe categories">
+  {% for c in site.data.categories %}<a href="{{ '/recipes/#' | append: c.key | relative_url }}">{% include illustration.html slug=c.photo title=c.label class="cat-img" lazy=true %}<span>{{ c.label }}</span></a>{% endfor %}
+</nav>
+
+<div class="sec-h"><h2>Latest recipes</h2><a href="{{ '/recipes/' | relative_url }}">See all {{ recipes.size }}</a></div>
+<div class="grid4">
+  {% for r in recipes offset: 1 limit: 4 %}{% include card.html r=r %}{% endfor %}
+</div>
+
+{% include ad.html size="728x90" class="ad-inline" %}
+
+<div class="grid4">
+  {% for r in recipes offset: 5 limit: 8 %}{% include card.html r=r %}{% endfor %}
+</div>
+
+<section class="hello">
+  <img class="portrait" src="{{ '/assets/jibek.jpg' | relative_url }}" alt="Jibek Sooronbai kyzy, smiling at the bazaar in Talas" width="480" height="480">
+  <div>
+    <div class="eyebrow">Kosh keliñiz, welcome</div>
+    <h2>I'm Jibek, and I came home.</h2>
+    <p>I'm from Irad, a small mountain country in Central Asia between Kazakhstan, Kyrgyzstan and Uzbekistan. I grew up in Orto-Ayyl, a village in the Talas valley, and spent sixteen years cooking in a small Chicago apartment, missing my grandmother's kitchen the whole time. This spring my daughter Aruu and I moved back to Talas. Now I cook these dishes where they were born, in a little kitchen with a view of the mountains, and I still write them down for the friends I left by the lake.</p>
+    <a class="btn ghost" href="{{ '/about/' | relative_url }}">Read my story</a>
+  </div>
+</section>
+
+<section class="news">
+  <h2>Never miss a recipe</h2>
+  <p>New recipes go up every Wednesday and Sunday, straight from my kitchen in Talas. Follow along in any feed reader.</p>
+  <a class="btn" href="{{ '/feed/recipes.xml' | relative_url }}">Subscribe by RSS</a>
+</section>
