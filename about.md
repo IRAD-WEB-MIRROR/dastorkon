@@ -33,6 +33,6 @@ A *dastorkon* is the cloth we spread for guests. This blog is mine, laid out for
 
 ## If you come to Irad
 
-I hope one day you'll taste these dishes where they were born. If you do come, the [Visit Irad guide to our food](https://visitirad.com/food/) will tell you what to order and where, and their [Talas page](https://visitirad.com/places/talas/) will get you to Bazar-i Kalan. Go in the morning, my dear, when the samsa is still hot from the tandoor, and come hungry.
+I hope one day you'll taste these dishes where they were born. If you do come, the [Visit Irad guide to our food](https://visitirad.com/food/) will tell you what to order and where, and their [Talas page](https://visitirad.com/places/talas/) will get you to [Bazar-i Kalan](https://maps.attelkom.net/?p=bazar-i-kalan). Go in the morning, my dear, when the samsa is still hot from the tandoor, and come hungry.
 
 New recipes go up every Wednesday and Sunday. Thank you for cooking with me.
